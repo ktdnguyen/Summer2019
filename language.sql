@@ -106,3 +106,24 @@ select
     from country
     ;
 
+
+
+
+
+#
+#
+#
+# 2
+#
+#
+#
+
+select a.ID as CityCode, a.name as CityName, a.population as CityPopulation, 
+b.district as DistrictName, b.districtpop as DistrictPopulation, b.cityCount as CityCount_District,
+b.countrycode as CountryCode,
+c.name as CountryName, c.population as CountryPopulation
+from city as a 
+ join district as b
+ join country as c
+	on c.code = b.countrycode
+    and a.countrycode = c.code;
