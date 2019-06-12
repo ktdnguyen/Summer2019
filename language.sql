@@ -30,9 +30,10 @@ drop table LanguageInfo;
 create table LanguageInfo as
 (
 	select a.Code, a.Population, b.CountryCode, b.Language, b.Percentage
-	from country as a
+    from country as a
 	left join countrylanguage as b on b.CountryCode=a.Code
 ) 
+
 order by CountryCode;
 
 #
@@ -55,7 +56,53 @@ select * from country;
 
 select * from languageinfo;
 
-select *, (sum(speakercount) from languageinfo where 
- from languageinfo
-group by language;
+#
+#table with distinct languages and total speakers of each language
+#
+drop table totallanguage;
+create table totallanguage as
+select language,
+	sum(speakercount) as TotalSpeaker
+from languageinfo group by language
+order by totalspeaker desc
+;
+
+select * from totallanguage;
+
+drop table top10language;
+create table top10language as
+select language
+from totallanguage
+limit 10;
+
+select * from top10language;
+
+
+##
+#
+#
+#	Q2
+#
+#
+##
+
+#total number of countries
+select count(code) as CountryCount
+from country;
+
+
+##
+# country that speaks less popular language
+##
+
+
+select 
+	(
+    select count(a.code) as LessPopularLanguageCountry
+	from languageinfo as a, top10language as b
+	where a.language = b.language and a.percentage > 50
+    )
+    / count(code) as Fraction_of_Countries_Speaking_less_popular_languages
+    from country
+    ;
 
