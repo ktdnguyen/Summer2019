@@ -1,0 +1,2 @@
+myuserid
+mypassword
