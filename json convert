@@ -1,0 +1,54 @@
+#import libraries
+
+import io
+import json
+import csv
+import os
+
+
+#fdir = "C:/Users/KT/Desktop/summer19/scopus_query/STANDARD query of social capital and neotraditionalism/networks_190615_1045_SOCI_year_STANDARD/"
+#fileName="networks_STANDARD_1960_13.json"
+
+folder = "neotraditionalism_190620_1509_SOCI_year_COMPLETE"
+
+fdir = "C:/Users/KT/Desktop/summer19/scopus_query/complete query/" + folder + "/"
+allfiles = os.listdir(fdir) #list of all json from query of the keyword
+allfiles.sort()
+
+filelist =[]
+c = 0
+
+for x in allfiles:
+
+    fin = io.open(fdir + x,encoding="utf-8")
+    fjson = json.load(fin)
+    fin.close()
+    
+    #sheet = open("C:/Users/KT/Desktop/"+ "articles.csv")
+    sheet = csv.writer(open("articles.csv", "wb+"))
+   # sheet.writerow(["Title", "Author", "Journal Title", "Year Published", "Abstract"])
+    
+    articles = fjson["search-results"]["entry"]
+    
+    TotalCount = fjson["search-results"]["opensearch:totalResults"]
+    if int(TotalCount) > 0:
+        filelist.append(x)
+        
+        for article in articles:
+            author = article["dc:title"]
+            title = article["dc:title"]
+            journal = article["prism:publicationName"]
+            year = article["prism:coverDisplayDate"]
+            
+            
+            #print(author + " $ ")
+            
+            
+            c+=1
+            
+            sheet.writerow([title, author, journal, year])
+
+
+
+#print(filelist)
+print("count: " + str(c))
