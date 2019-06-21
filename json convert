@@ -25,7 +25,7 @@ for x in allfiles:
     fin.close()
     
     #sheet = open("C:/Users/KT/Desktop/"+ "articles.csv")
-    sheet = csv.writer(open("articles.csv", "wb+"))
+    #sheet = csv.writer(open("articles.csv", "wb+"))
    # sheet.writerow(["Title", "Author", "Journal Title", "Year Published", "Abstract"])
     
     articles = fjson["search-results"]["entry"]
@@ -39,14 +39,16 @@ for x in allfiles:
             title = article["dc:title"]
             journal = article["prism:publicationName"]
             year = article["prism:coverDisplayDate"]
+            abstract = str(article.get("dc:description"))
             
+            print("abstract: " + abstract)
             
             #print(author + " $ ")
             
             
             c+=1
             
-            sheet.writerow([title, author, journal, year])
+           # sheet.writerow([title, author, journal, year,abstract])
 
 
 
