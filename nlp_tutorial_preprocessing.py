@@ -105,8 +105,9 @@ for doc in corpus_raw:
 	
 	corpus_clean1.append(tokens_filter_stopwords)
 	
-print("\nprint tokens for each doc in corpus_clean1............................")
-for doc in corpus_clean1:
+
+print("\nprint tokens for first 10 doc in corpus_clean1............................")
+for doc in corpus_clean1[0:10]:
 	print(doc)
 
 
@@ -117,20 +118,21 @@ for doc in corpus_clean1:
 
 
 # bigram lists (n-grams where n=2) of cleaned tokens for each document
-corpus_bigrams=[]
-for doc in corpus_clean1:
-	bigrams = list(nltk.bigrams(doc))
-	#print("\nbigrams............................")
-	#print(doc)
-	#print(bigrams)
-	
-	corpus_bigrams.append(bigrams)
+if False:
+	corpus_bigrams=[]
+	for doc in corpus_clean1:
+		bigrams = list(nltk.bigrams(doc))
+		#print("\nbigrams............................")
+		#print(doc)
+		#print(bigrams)
+		
+		corpus_bigrams.append(bigrams)
 
-print("\nprint bigrams for each doc in corpus_clean1............................")
-for doc in corpus_bigrams:
-	print("\n")
-	print(doc)
-	
+	print("\nprint bigrams for each doc in corpus_clean1............................")
+	for doc in corpus_bigrams:
+		print("\n")
+		print(doc)
+		
 
 # keyword frequency dictionaries for each document
 corpus_freqdict=[]
@@ -145,17 +147,15 @@ for doc in corpus_clean1:
 	#print(freqDict)
 	corpus_freqdict.append(freqDict)
 	
-print("\nprint frequency dictionaries for each doc in corpus_clean1............................")
-for doc_dict in corpus_freqdict:
+print("\nprint frequency dictionaries for first 10 docs in corpus_clean1............................")
+for doc_dict in corpus_freqdict[0:10]:
 	print("\n")
 	for key in doc_dict:
-		print(key,"\t",doc_dict[key])
+			print(key,"\t",doc_dict[key])
 		
 		
 # overall keyword frequency dictionary
-
 total_corpus_freqdict={}
-
 for dict in corpus_freqdict:
 	for token in dict:
 		if token in total_corpus_freqdict:
@@ -163,25 +163,21 @@ for dict in corpus_freqdict:
 		else:
 			total_corpus_freqdict[token]=dict[token]
 		
-print("\nprint frequency dictionaries for all doc in total_corpus_freqdict............................")
-for token in total_corpus_freqdict:
-	print(token ,"\t" ,total_corpus_freqdict[token])
+#print("\nprint keyword frequency for all doc in total_corpus_freqdict............................")
+#for token in total_corpus_freqdict:
+#	print(token ,"\t" ,total_corpus_freqdict[token])
+
 
 #sort total_corpus_freqdict by frequency
-
 sorted_freqdict = sorted(total_corpus_freqdict.items(), key=lambda kv: kv[1], reverse=True)
-
 total_corpus_freqdict = {item[0]:item[1] for item in sorted_freqdict}
-
-print("\nprint frequency dictionaries for all doc in total_corpus_freqdict sorted............................")
-
-for token in total_corpus_freqdict:
+print("\nprint keyword frequency for top 100 keywords in total_corpus_freqdict sorted............................")
+for token in list(total_corpus_freqdict.keys())[0:100]:
 	print(token ,"\t" ,total_corpus_freqdict[token])
 
 ####################################################################################
 # NLP analysis - Generation 2 - latent topics, chunked phrases, semantic analysis, collocation, synonyms, antonyms
 ####################################################################################
-
 
 
 
