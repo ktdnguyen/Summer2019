@@ -11,6 +11,7 @@ from nltk.tokenize import RegexpTokenizer
 
 corpus_fname = "corpus_raw.txt"
 
+
 # corpus_raw: raw document strings
 corpus_fin=open(corpus_fname)
 corpus_raw=corpus_fin.readlines()
@@ -153,11 +154,33 @@ for doc_dict in corpus_freqdict:
 		
 # overall keyword frequency dictionary
 
+total_corpus_freqdict={}
+
+for dict in corpus_freqdict:
+	for token in dict:
+		if token in total_corpus_freqdict:
+			total_corpus_freqdict[token]+=dict[token]
+		else:
+			total_corpus_freqdict[token]=dict[token]
+		
+print("\nprint frequency dictionaries for all doc in total_corpus_freqdict............................")
+for token in total_corpus_freqdict:
+	print(token ,"\t" ,total_corpus_freqdict[token])
+
+#sort total_corpus_freqdict by frequency
+
+sorted_freqdict = sorted(total_corpus_freqdict.items(), key=lambda kv: kv[1], reverse=True)
+
+total_corpus_freqdict = {item[0]:item[1] for item in sorted_freqdict}
+
+print("\nprint frequency dictionaries for all doc in total_corpus_freqdict sorted............................")
+
+for token in total_corpus_freqdict:
+	print(token ,"\t" ,total_corpus_freqdict[token])
 
 ####################################################################################
 # NLP analysis - Generation 2 - latent topics, chunked phrases, semantic analysis, collocation, synonyms, antonyms
 ####################################################################################
-
 
 
 
